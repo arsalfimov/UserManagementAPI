@@ -107,6 +107,14 @@ builder.Services.AddSingleton(mapper);
 
 var app = builder.Build();
 
+var serviceScopeFactory = app.Services.GetRequiredService<IServiceScopeFactory>();
+
+using (var scope = serviceScopeFactory.CreateScope())
+{
+    var dbContext = scope.ServiceProvider.GetRequiredService<ApplicationDbContext>();
+    DbInitializer.Initialize(dbContext);
+}
+
 if (!app.Environment.IsDevelopment())
 {
     app.UseExceptionHandler("/Error");
