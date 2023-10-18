@@ -127,7 +127,7 @@ public class UsersController : ControllerBase
     )]
     public async Task<ActionResult<List<User>>> SortUsers(
         [SwaggerParameter("Number of pages.", Required = true)] int page,
-        [SwaggerParameter("The amount of content per page.")] int pageSize,
+        [SwaggerParameter("The amount of content per page.", Required = true)] int pageSize,
         [SwaggerParameter("Sorting by content (params: name, age, email, role).")] string sortBy)
     {
         var users = await _userService.GetUsersWithSortAsync(page, pageSize, sortBy);
